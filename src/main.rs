@@ -1,55 +1,25 @@
-use std::io;
 use std::time::Instant;
+mod utils;
+mod finder;
+mod collatz;
 
 fn main() {
-
     println!("Welcome to the 3n+1 calculating program!");
-    //get the input for max
-    let mut number: u128 =  get_input("What number would you like to start at?").trim().parse().unwrap();
-    //max number
-    let mut max: u128 = 0;
-    // total times that the loop has run before arriving to 1
-    let mut iterations: u128 = 0;
-    let start_time = Instant::now();
+    let user_option = utils::get_input("What version would you like to run?\n'n': normal\n'f': finder\n");
 
-    while number != 1{
-        //why no ++ :(
-        iterations += 1;
-        //find the max
-        if number > max {
-            max = number;
-        }
-        // if the number is odd, multiply by 3 and add 1
-        if is_odd(number){
-            number = 3 * number + 1;
-        }else{
-            //if the number is even, divide it by 2
-            number = number / 2;
-        }
+    if user_option == "n"{
+        //get the input for max
+        let starting_number: u128 = utils::get_input("What number would you like to start at?").trim().parse().unwrap();
+        let start_time = Instant::now();
+        let (steps, max) = collatz::run(starting_number);
+        let duration = start_time.elapsed();
+        //print the results
+        println!("The program went over a total of {} steps before returning to 1", steps);
+        println!("The maximum that the number got to was {}", max);
+        println!("Time elapsed: {} milliseconds", duration.as_millis())
 
+    }else if user_option == "f"{
+        finder::finder();
     }
 
-    let duration = start_time.elapsed();
-    //print the results
-    println!("The program went over a total of {} total numbers before returning to 1", iterations);
-    println!("The maximum that the number got to was {}", max);
-    println!("Time elapsed: {} milliseconds", duration.as_millis())
-
-}
-
-//get is odd number just makes the code above more clean idk
-fn is_odd(num: u128) -> bool{
-    if num % 2 == 0 {return false}
-    else{return true}
-}
-
-//get input function because it just makes stuff easier
-fn get_input(prompt: &str) -> String{
-    println!("{}",prompt);
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input) {
-        Ok(_goes_into_input_above) => {},
-        Err(_nothing) => {println!("error with input");},
-    }
-    input.trim().to_string()
 }
