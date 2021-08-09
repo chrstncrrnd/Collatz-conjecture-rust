@@ -21,6 +21,6 @@ pub fn finder(){
         }
     }
 
-    print!("Largest ammount of steps was: {} on the number {} \nAnd it took a total of: {} milliseconds.", max_steps, max, start_time.elapsed().as_millis())
+    println!("Largest ammount of steps was: {} on the number {} \nAnd it took a total of: {} milliseconds.", max_steps, max, start_time.elapsed().as_millis())
 
 }
