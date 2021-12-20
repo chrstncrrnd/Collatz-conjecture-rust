@@ -5,7 +5,7 @@ watched the veritassium video and thought it would be cool to implement somethin
 unironically rly fast
 
 to build it yourself:
-make sure you have rust properly installed
+make sure you have [rust](https://www.rust-lang.org/) properly installed
 
 run `cargo build` to build it 
 
