@@ -6,7 +6,6 @@ mod collatz;
 fn main() {
     println!("Welcome to the 3n+1 calculating program!");
     loop{
-
         let user_option = utils::get_input("What version would you like to run?\n'n': normal\n'f': finder\n");
 
         if user_option == "n"{
